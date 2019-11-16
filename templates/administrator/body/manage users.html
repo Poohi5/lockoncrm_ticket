@@ -1,0 +1,309 @@
+
+<br><br>
+
+
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+
+
+<!--
+    <div class="modal fade" id="delete" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you wish to delete the user(s)?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="ondelete()">Delete</button>
+        </div>
+      </div>     
+    </div>
+  </div>
+-->
+
+  <div class="modal fade" id="create" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create new entry</h4>
+        </div>
+        <form id="myForm">
+        <div class="modal-body">
+        <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username_c" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name_c" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="role">role</label>
+              <input type="text" class="form-control" id="rolename_c" placeholder="Role">
+            </div>
+             <div class="form-group">
+               <label for="active">Active</label>
+              <input type="checkbox" id="active_c">  
+            </div>
+           
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="create()">Create</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+
+
+    <div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit entry</h4>
+        </div>
+        <form id="myForm">
+        <div class="modal-body">
+        <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+
+             <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" class="form-control" id="username_u" placeholder="Username">
+            </div>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name_u" placeholder="Name">
+            </div>
+            <div class="form-group">
+              <label for="role">role</label>
+              <input type="text" class="form-control" id="rolename_u" placeholder="Role">
+            </div>
+             <div class="form-group">
+              <label for="active">Active</label>
+              <input type="checkbox" value=1 id="active_u">  
+           
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="update()">Update</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+
+  
+
+
+
+ 
+
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+<script>
+
+var rowData; 
+var table;
+
+$(document).ready(function() {
+
+ datatables();
+
+
+        
+});
+
+        function datatables()
+        {
+               var events = $('#events');
+            table = $('#example').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "responsive": true,
+        "ajax":{"url":"{{url_for('query_user')}}",
+        "type":"POST"
+    },
+        "columns": [
+            { "data": "username" },
+            { "data": "name" },
+            { "data": "rolename" },
+            { "data": "active" }
+        ],
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true,
+        "buttons": [
+             'pageLength',
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF'
+            },
+            {
+                text: 'create',
+                action: function (e, dt, node, config) {
+                     $("#create").modal();    
+                }
+                
+            },
+            {
+                text: 'edit',
+                action: function (e, dt, node, config) {
+                    document.getElementById('username_u').value = table.cell('.selected',0).data();
+                    document.getElementById('name_u').value = table.cell('.selected',1).data();
+                    document.getElementById('rolename_u').value = table.cell('.selected',2).data();
+                    if(table.cell('.selected',3).data())
+                    {
+                         $('#active_u').prop('checked', true);
+                    }
+                     $("#edit").modal();    
+                }
+                
+            }/*,
+            {
+                text: 'delete',
+                action: function (e, dt, node, config) {
+                     $("#delete").modal();    
+                }
+            }
+            */
+        ]
+    } );
+              table.on( 'select', function ( e, dt, type, indexes ) {
+
+            rowData = table.rows( indexes ).data().toArray();
+          });
+
+    }
+
+  
+
+        
+
+        function create()
+        {
+            var username = document.getElementById('username_c').value; 
+            var name = document.getElementById('name_c').value;
+            var rolename = document.getElementById('rolename_c').value;
+            if(document.getElementById('active_c').checked) {
+  				var active = 1;
+			} 
+			else {
+  				var active = 0;
+			}
+            var data = [username,name,rolename,active];
+             $.ajax({
+                type: "POST",
+                url: "{{url_for('create_user')}}",
+                data: JSON.stringify(data, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+        }
+
+        function update()
+        {
+            var username = document.getElementById('username_u').value; 
+            var name = document.getElementById('name_u').value;
+            var rolename = document.getElementById('rolename_u').value;
+            if(document.getElementById('active_u').checked){
+              var active = 1;
+            }
+            else
+            {
+            var active = 0;
+            }
+            var data = [username,name,active,rolename,rowData];
+             $.ajax({
+                type: "POST",
+                url: "{{url_for('update_user')}}",
+                data: JSON.stringify(data, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+        }
+/*
+        function ondelete()
+        {
+             $.ajax({
+                type: "POST",
+                url: " ",
+                data: JSON.stringify(rowData, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                 success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+        }
+
+       */
+
+
+
+ 
+</script>
+
+
+

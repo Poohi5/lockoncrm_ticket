@@ -1,0 +1,480 @@
+
+
+<br><br>
+
+
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                 <th>Submitted By</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                 <th>Assigned By</th>
+                <th>Assigned To</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                 <th>Submitted By</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                 <th>Assigned By</th>
+                <th>Assigned To</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+<!-- 
+
+
+
+
+
+
+   <div class="modal fade" id="delete" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Delete</h4>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you wish to delete the ticket(s)?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="ondelete()">Delete</button>
+        </div>
+      </div>     
+    </div>
+  </div>
+
+  <div class="modal fade" id="create" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Create new ticket</h4>
+        </div>
+        <form id="myForm">
+        <div class="modal-body">
+        <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+
+            <div class="form-group">
+              <label for="project">Project</label>
+              <input type="text" class="form-control" id="project" placeholder="Project">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" class="form-control" id="subject" placeholder="Subject of the issue">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="Description of the issue">
+            </div>
+                <div class="form-group">
+              <label for="submittedto_name">Submitted to</label>
+              <input type="hidden" class="form-control" id="submittedto_name" placeholder="Submitted to">
+              <div class="col-xs-12">
+              <div class="col-xs-offset-3 col-xs-3" >
+              <button type="button" class="btn btn-sm" onclick="select_submittedto_name()" >Select</button>
+              </div>
+              <div class="col-xs-6">
+               <label for="submittedto_name">Submitted to</label>
+              </div>
+              </div>
+            </div>
+              <br>
+
+            <div class="form-group">
+              <label for="duedate">Start date</label>
+              <input type="date" class="form-control" id="startdate" placeholder="Start date">
+            </div>
+            <div class="form-group">
+              <label for="assignedby_name">Assigned by</label>
+              <input type="hidden" class="form-control" id="assignedby_name" placeholder="Assigned by">
+              <div class="col-xs-12">
+              <div class="col-xs-offset-3 col-xs-3" >
+              <button type="button" class="btn btn-sm" onclick="select_assignedby_name()">Select</button>
+              </div>
+              <div class="col-xs-6">
+               <label for="assignedby_name">Assigned by</label>
+              </div>
+              </div>
+            </div>
+              <br>
+
+             <div class="form-group">
+              <label for="assignedto_name">Assigned to</label>
+              <input type="hidden" class="form-control" id="assignedto_name" placeholder="Assigned to">
+              <div class="col-xs-12">
+              <div class="col-xs-offset-3 col-xs-3" >
+              <button type="button" class="btn btn-sm" onclick="select_assignedto_name()">Select</button>
+              </div>
+              <div class="col-xs-6">
+               <label for="assignedto_name">Assigned to</label>
+              </div>
+              </div>
+            </div>
+              <br>
+
+            <div class="form-group">
+              <label for="duedate">Due date</label>
+              <input type="date" class="form-control" id="duedate" placeholder="Due date">
+            </div>
+             <div class="form-group">
+              <label for="completeddate">Completed date</label>
+              <input type="date" class="form-control" id="duedate" placeholder="Completed date">
+            </div>
+           
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="create()">Create</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+
+
+    <div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit entry</h4>
+        </div>
+        <form id="myForm">
+        <div class="modal-body">
+        <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+
+             <div class="form-group">
+              <label for="project">Project</label>
+              <input type="text" class="form-control" id="project" placeholder="Project">
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" class="form-control" id="subject" placeholder="Subject of the issue">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" class="form-control" id="description" placeholder="Description of the issue">
+            </div>
+            <div class="form-group">
+              <label for="assignedby_name">Sumbitted by</label>
+              <input type="text" class="form-control" id="sumbitted" placeholder="Sumbitted by">
+            </div>
+            <div class="form-group">
+              <label for="duedate">Start date</label>
+              <input type="text" class="form-control" id="startdate" placeholder="Start date">
+            </div>
+            <div class="form-group">
+              <label for="assignedby_name">Assigned by</label>
+              <input type="text" class="form-control" id="assignedby_name" placeholder="Assigned by">
+            </div>
+             <div class="form-group">
+              <label for="assignedto_name">Assigned to</label>
+              <input type="text" class="form-control" id="assignedto_name" placeholder="Assigned to">
+            </div>
+            <div class="form-group">
+              <label for="duedate">Due date</label>
+              <input type="text" class="form-control" id="duedate" placeholder="Due date">
+            </div>
+             <div class="form-group">
+             <div class="form-group">
+              <label for="completeddate">Completed date</label>
+              <input type="text" class="form-control" id="duedate" placeholder="Completed date">
+            </div>
+           
+
+           
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="update()">Update</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+
+ 
+ <div class="modal fade modal-wide" id="select_submittedto_name" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select User</h4>
+        </div>
+        <div class="modal-body">
+      <table id="select_submittedto_name_datatable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </tfoot>
+    </table>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="select_submittedto_name()">Select</button>
+        </div>
+      </div>     
+    </div>
+  </div>
+
+
+
+ -->
+
+
+<script>
+
+var rowData; 
+var table;
+
+  
+
+
+$(document).ready(function() {
+
+ datatables();
+
+
+        
+});
+
+        function datatables()
+        {
+               var events = $('#events');
+            table = $('#example').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "responsive": true,
+        "ajax":{"url":"{{url_for('query_ticket')}}",
+        "type":"POST"
+    },
+        "columns": [
+            { "data": "id" },
+            { "data": "project" },
+            { "data": "subject" },
+            { "data": "description" },
+            { "data": "submittedby_name" },
+            { "data": "startdate" },
+            { "data": "duedate" },
+            { "data": "assignedby_submittedto_name",
+               render: function ( data, type, row ) {
+                return '<p class=\"user\" onclick="details()">'+ data+'</p>';
+              }},
+            { "data": "assignedto_name" },
+            { "data": "completeddate" },
+            { "data" : "status"}
+        ],
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true,
+        "buttons": [
+             'pageLength',
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF'
+            }/*,
+           
+            {
+                text: 'edit',
+                action: function (e, dt, node, config) {
+                     $("#edit").modal();    
+                },
+               // enabled: false
+                
+            },
+             {
+                text: 'create',
+                action: function (e, dt, node, config) {
+                     //$("#create").modal();    
+                      $("#create").modal();
+                    // select_submittedto_name_database();
+                }
+                
+            },
+            {
+                text: 'delete',
+                action: function (e, dt, node, config) {
+                     $("#delete").modal();    
+                },
+                //enabled: false
+            }
+            */
+        ]
+    } );
+              table.on( 'select', function ( e, dt, type, indexes ) {
+
+            rowData = table.rows( indexes ).data().toArray();
+          });
+
+    }
+
+  
+
+ /*       
+
+        function create()
+        {
+            var username = document.getElementById('username_c').value; 
+            var name = document.getElementById('name_c').value;
+            var rolename = document.getElementById('rolename_c').value;
+            var active = document.getElementById('active_c').value;
+            var data = [username,name,rolename,active];
+             $.ajax({
+                type: "POST",
+                url: "{{url_for('create_user')}}",
+                data: JSON.stringify(data, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+        }
+
+        function update()
+        {
+            var username = document.getElementById('username_u').value; 
+            var name = document.getElementById('name_u').value;
+            var rolename = document.getElementById('rolename_u').value;
+            var active = document.getElementById('active_u').value;
+            var data = [username,name,rolename,active,rowData];
+             $.ajax({
+                type: "POST",
+                url: "{{url_for('update_user')}}",
+                data: JSON.stringify(data, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+        }
+
+        function ondelete()
+        {
+             $.ajax({
+                type: "POST",
+                url: "",
+                data: JSON.stringify(rowData, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                 success: function(data)
+                {
+
+                   table.ajax.reload();
+                }       
+                })
+        }
+        
+
+        function select_submittedto_name()
+        {
+
+            $("#select_submittedto_name").modal();
+            select_submittedto_name_datatable_call();
+
+          
+        }
+
+
+ 
+        var selected;
+
+
+         function select_submittedto_name_datatable_call()
+        {
+               var events = $('#events');
+            select_submittedto_name_table = $('#select_submittedto_name_datatable').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "retrieve": true,
+        "ajax":{"url":"{{url_for('query_user')}}",
+        "type":"POST"
+         },
+        "columns": [
+            { "data": "username" },
+            { "data": "name" },
+            { "data": "rolename" },
+            { "data": "active" }
+        ],
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true
+    } );
+              select_submittedto_name_table.on( 'select', function ( e, dt, type, indexes ) {
+
+            selected = select_submittedto_name_table.rows( indexes ).data().toArray();
+          });
+
+    }
+
+    function details()
+    {
+      var user = $(this).text();
+      
+    }
+
+ //   function select_submittedto_name()
+   // {
+   //     document.getElementById('Submitted to').value = Selected;
+    //}
+
+*/
+</script>
+
+
+

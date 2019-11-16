@@ -1,0 +1,64 @@
+<!-- security lock goes here-->
+
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Edit Profile</title>
+
+{% include "global/utility/links.html" %}
+
+
+</head>
+<body>
+
+<div class="header-bg">
+	<div class="wrap"> 
+		<div class="total-box">
+			<div class="total">
+				<div class="header_top">
+				    <!-- navbar goes here -->
+				   
+					{% include "global/utility/navbar.html" %}
+					
+					{% block active %}
+					{% endblock %}
+					
+
+
+				</div>
+
+				<div class="header-bottom">
+					<!-- Title and logo goes here-->
+					
+					{% include "global/utility/title and logo.html" %}
+
+					<div class="clear"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="banner-box">
+		<div class="wrap">
+			<div class="main-top">
+				<div class="main">
+					<div>
+						<!--secondary navbar goes here-->
+						{% block secondarynavbar %}
+						{% endblock %}
+					</div>
+					<div >
+						<!-- Body goes here -->
+						{% block body %}
+						{% endblock %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+
+</body>
+</html>

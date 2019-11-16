@@ -1,0 +1,179 @@
+
+
+<br><br>
+
+
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+ 
+ <div class="modal fade modal-wide" id="select_submittedto_name" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select User</h4>
+        </div>
+        <div class="modal-body">
+      <table id="select_submittedto_name_datatable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </tfoot>
+    </table>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="select_submittedto_name()">Select</button>
+        </div>
+      </div>     
+    </div>
+  </div>
+
+
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+<script>
+
+var rowData; 
+var table;
+
+  
+
+
+$(document).ready(function() {
+
+ datatables();
+
+
+        
+});
+
+        function datatables()
+        {
+               var events = $('#events');
+            table = $('#example').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "responsive": true,
+        "ajax":{"url":"{{url_for('query_ticket')}}",
+        "type":"POST"
+    },
+        "columns": [
+            { "data": "id" },
+            { "data": "project" },
+            { "data": "subject" },
+            { "data": "description" },
+            { "data": "startdate" },
+            { "data": "duedate" },
+            { "data": "completeddate" },
+            { "data" : "status"}
+        ],
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true,
+        "buttons": [
+             'pageLength',
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF'
+            }/*,
+           
+            {
+                text: 'edit',
+                action: function (e, dt, node, config) {
+                     $("#edit").modal();    
+                },
+               // enabled: false
+                
+            },
+             {
+                text: 'create',
+                action: function (e, dt, node, config) {
+                     //$("#create").modal();    
+                      $("#create").modal();
+                    // select_submittedto_name_database();
+                }
+                
+            },
+            {
+                text: 'delete',
+                action: function (e, dt, node, config) {
+                     $("#delete").modal();    
+                },
+                //enabled: false
+            }
+            */
+        ]
+    } );
+             
+
+    }
+
+  
+
+ 
+
+</script>
+
+
+

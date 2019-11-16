@@ -1,0 +1,30 @@
+  <div class="menu">
+    <ul class="nav navbar-nav navbar-right">
+        <li id="menu_item" class="menu1"><a href="{{url_for('login')}}">Home</a></li>
+        <li id="menu_item" class="menu2"><a href="#">About</a></li>
+        {% if current_user.is_authenticated %}
+        <li id="menu_item" class="menu3">
+           <a href="{{url_for('dashboard')}}">
+           Dashboard
+           </a> 
+        </li>
+        <li id="menu_item" class="menu4">
+           <a href="{{url_for('logout')}}">
+           Logout
+           </a>
+        </li>
+        {% endif %}
+    	</ul>
+    	<div class="clear"></div>
+    </ul>
+</div>
+
+<div>
+    <ul class="follow_icon">
+    	<li><a href="#" style="opacity: 1;"><img src="../static/images/fb.png" alt=""></a></li>
+     	<li><a href="#" style="opacity: 1;"><img src="../static/images/tw.png" alt=""></a></li>
+     	<li><a href="#" style="opacity: 1;"><img src="../static/images/rss.png" alt=""></a></li>
+   	</ul>
+   	<div class="clear"></div>
+</div>
+

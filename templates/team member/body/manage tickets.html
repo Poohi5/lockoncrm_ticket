@@ -1,0 +1,257 @@
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.2.0/css/select.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+                      
+<script type="text/javascript" charset="utf8" src="http://code.jquery.com/jquery-1.12.0.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.11/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript" 
+ src="https://cdn.datatables.net/buttons/1.1.2/js/dataTables.buttons.min.js">
+</script>
+<script type="text/javascript" 
+ src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.flash.min.js">
+</script>
+<script type="text/javascript" 
+ src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js">
+</script>
+
+
+<script type="text/javascript" 
+ src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js">
+</script>
+
+<script type="text/javascript" 
+ src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js">
+</script>
+<script type="text/javascript" 
+ src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.html5.min.js">
+</script>
+<script type="text/javascript" 
+ src="https://cdn.datatables.net/buttons/1.1.2/js/buttons.print.min.js">
+</script>
+<script type="text/javascript" 
+ src="https://cdn.datatables.net/select/1.2.0/js/dataTables.select.min.js">
+</script>
+<script type="text/javascript" 
+ src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js">
+</script>
+
+<br><br>
+
+
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                 <th>Submitted By</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                 <th>Assigned By</th>
+                <th>Assigned To</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                 <th>Submitted By</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                 <th>Assigned By</th>
+                <th>Assigned To</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+
+
+ <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>    <!-- preserve the order of scripts -->
+
+
+   <script src="../static/js/bootstrap-modalmanager.js"></script>
+  <script src="../static/js/bootstrap-modal.js"></script>
+  <link href="../static/css/bootstrap-modal.css" rel="stylesheet" type="text/css" media="all" />
+
+<style type="text/css">
+  .modal {
+  text-align: center;
+  padding: 0!important;
+}
+
+.modal:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  margin-right: -4px;
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+</style>
+
+
+
+    <div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit entry</h4>
+        </div>
+        <form id="myForm">
+        <div class="modal-body">
+        <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+            <h3> Done with the issue.</h3>
+            <br>
+            <div class="form-group col-xs-offset-4">
+             <label for="active">Completed</label>
+              <input type="checkbox" id="completed">  
+            </div>
+
+           
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="update()">Update</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+
+ 
+
+ 
+
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+<script>
+
+var rowData; 
+var table;
+
+$(document).ready(function() {
+
+ datatables();
+
+
+        
+});
+
+        function datatables()
+        {
+               var events = $('#events');
+            table = $('#example').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "ajax":{"url":"{{url_for('query_ticket')}}",
+        "type":"POST"
+    },
+        "columns": [
+            { "data": "id" },
+            { "data": "project" },
+            { "data": "subject" },
+            { "data": "description" },
+            { "data": "submittedby_name" },
+            { "data": "startdate" },
+            { "data": "duedate" },
+            { "data": "assignedby_submittedto_name" },
+            { "data": "assignedto_name" },
+            { "data": "completeddate" },
+            { "data": "status"}
+        ],
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true,
+        "buttons": [
+             'pageLength',
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF'
+            }
+        ]
+    } );
+              table.on( 'select', function ( e, dt, type, indexes ) {
+
+            rowData = table.rows( indexes ).data().toArray();
+            if(table.cell('.selected',10).data() == "assigned" || table.cell('.selected',10).data() == "redo"){
+                 $("#edit").modal();   
+              }
+              // $("#edit").modal();   
+          });
+
+    }
+
+    function update(){
+       if(document.getElementById('completed').checked){
+          var completed = true;
+       }
+       else
+       {
+          var completed = false;
+       }
+       var data = [completed,rowData];
+       $.ajax({
+                type: "POST",
+                url: "{{url_for('manageticketsteammember')}}",
+                data: JSON.stringify(data, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+    }
+
+  
+ 
+</script>
+
+
+

@@ -1,0 +1,289 @@
+
+
+<br><br>
+
+
+
+<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                 <th>Submitted By</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                 <th>Assigned By</th>
+                <th>Assigned To</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>ID</th>
+                 <th>Project</th>
+                <th>Subject</th>
+                <th>Description</th>
+                 <th>Submitted By</th>
+                <th>Start Date</th>
+                <th>Due Date</th>
+                 <th>Assigned By</th>
+                <th>Assigned To</th>
+                <th>Completed Date</th>
+                <th>Status</th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+
+
+    <div class="modal fade" id="edit" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Edit entry</h4>
+        </div>
+        <form id="myForm">
+        <div class="modal-body">
+        <div class="row">
+        <div class="col-xs-offset-1 col-xs-10">
+        
+              <div class="form-group">
+              
+         
+              <div class="col-xs-12">
+
+              <div class="col-xs-offset-1 col-xs-3" >
+              <button type="button" class="btn btn-sm" onclick="select_assignto_name()" >Select</button>
+              </div>
+              <div class="col-xs-8">
+                <input class="form-control" id="assignto_name" placeholder="Assign to">
+              </div>
+              </div>
+            </div>
+              <br/>
+
+             <div class="form-group col-xs-offset-1 col-xs-11">
+             <br/>
+              <label>Status :</label>
+              <select class="form-control" id="status">
+                <option value="resolved">Resolved</option>
+                <option value="assigned">Assigned</option>
+                <option value="omitted">Omitted</option>
+                <option value="redo">Redo</option>
+                <option value="completed">Completed</option>
+              </select>
+            </div>
+
+           
+        </div>
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="update()">Update</button>
+        </div>
+        </form>
+      </div>     
+    </div>
+  </div>
+
+ 
+
+
+  <div class="modal fade modal-wide" id="select_assignedto_name" role="dialog" >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Select User</h4>
+        </div>
+        <div class="modal-body">
+      <table id="select_assignedto_name_datatable" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Username</th>
+                 <th>name</th>
+                <th>rolename</th>
+                <th>active</th>
+            </tr>
+        </tfoot>
+    </table>
+      </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" onclick="select()">Select</button>
+        </div>
+      </div>     
+    </div>
+  </div>
+
+
+ 
+
+
+<!-- xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx -->
+
+
+<script>
+
+var rowData; 
+var table;
+
+$(document).ready(function() {
+
+ datatables();
+
+
+        
+});
+
+        function datatables()
+        {
+               var events = $('#events');
+            table = $('#example').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "ajax":{"url":"{{url_for('query_ticket')}}",
+        "type":"POST"
+    },
+        "columns": [
+            { "data": "id" },
+            { "data": "project" },
+            { "data": "subject" },
+            { "data": "description" },
+            { "data": "submittedby_name" },
+            { "data": "startdate" },
+            { "data": "duedate" },
+            { "data": "assignedby_submittedto_name" },
+            { "data": "assignedto_name" },
+            { "data": "completeddate" },
+            { "data": "status"}
+        ],
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true,
+        "buttons": [
+             'pageLength',
+            {
+                extend:    'copyHtml5',
+                text:      '<i class="fa fa-files-o"></i>',
+                titleAttr: 'Copy'
+            },
+            {
+                extend:    'excelHtml5',
+                text:      '<i class="fa fa-file-excel-o"></i>',
+                titleAttr: 'Excel'
+            },
+            {
+                extend:    'csvHtml5',
+                text:      '<i class="fa fa-file-text-o"></i>',
+                titleAttr: 'CSV'
+            },
+            {
+                extend:    'pdfHtml5',
+                text:      '<i class="fa fa-file-pdf-o"></i>',
+                titleAttr: 'PDF'
+            }
+        ]
+    } );
+              table.on( 'select', function ( e, dt, type, indexes ) {
+
+            rowData = table.rows( indexes ).data().toArray();
+              document.getElementById('status').value = table.cell('.selected',10).data();
+              document.getElementById('assignto_name').value = table.cell('.selected',8).data();
+
+             $("#edit").modal();   
+
+
+          });
+
+    }
+
+
+   function select_assignto_name()
+        {
+
+            $("#select_assignedto_name").modal();
+            select_assignedto_name_datatable_call();
+
+          
+        }
+
+
+ 
+        var selected;
+
+
+         function select_assignedto_name_datatable_call()
+        {
+               var events = $('#events');
+            select_submittedto_name_table = $('#select_assignedto_name_datatable').DataTable( {
+        "processing": true,
+        "serverSide": false,
+        "retrieve": true,
+        "ajax":{"url":"{{url_for('query_user_only_team_members')}}",
+        "type":"POST"
+         },
+        "columns": [
+            { "data": "username" },
+            { "data": "name" },
+            { "data": "rolename" },
+            { "data": "active" }
+        ],
+        "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 rows', '25 rows', '50 rows', 'Show all' ]
+        ],
+        "select": true
+    } );
+              select_submittedto_name_table.on( 'select', function ( e, dt, type, indexes ) {
+
+            selected = select_submittedto_name_table.rows( indexes ).data().toArray();
+          });
+
+    }
+
+
+    function update()
+    {
+
+          var status = document.getElementById('status').value;
+        var assignto =   document.getElementById('assignto_name').value;
+       var data = [assignto,status,rowData];
+       $.ajax({
+                type: "POST",
+                url: "{{url_for('manageticketsprojectmanager')}}",
+                data: JSON.stringify(data, null, '\t'),  
+                contentType: 'application/json;charset=UTF-8',
+                success: function(data)
+                {
+                   table.ajax.reload();
+                }       
+                })
+    }
+
+
+    function select()
+    {
+      document.getElementById('assignto_name').value = (selected[0])['username'];
+    }
+ 
+</script>
+
+
+

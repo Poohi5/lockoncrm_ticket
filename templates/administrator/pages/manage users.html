@@ -1,0 +1,18 @@
+{% extends "administrator/template/template.html" %}
+
+{% block body %}
+{% include "administrator/body/manage users.html" %}
+{% endblock %}
+
+
+{% block secondarynavbar %}
+
+<ul class="nav nav-tabs">
+	 <li class="menusec1"><a href="{{url_for('manageusers')}}">Manage Users</a></li>
+	 <li class="menusec2"><a href="{{url_for('managetickets')}}">Manage Tickets</a></li>
+</ul>
+
+<script type="text/javascript">
+	$(".menusec1").addClass("active");
+</script>
+{% endblock %}

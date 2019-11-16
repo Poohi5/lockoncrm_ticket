@@ -1,0 +1,17 @@
+{% extends "client/template/template.html" %}
+
+{% block body %}
+{% include "client/body/issue box.html" %}
+{% endblock %}
+
+{% block secondarynavbar %}
+
+<ul class="nav nav-tabs">
+	 <li class="menusec1"><a href="{{url_for('fileissue')}}">File a issue</a></li>
+	 <li class="menusec2"><a href="{{url_for('viewtickets')}}">View tickets</a></li>
+</ul>
+
+<script type="text/javascript">
+	$(".menusec1").addClass("active");
+</script>
+{% endblock %}
